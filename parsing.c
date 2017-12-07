@@ -71,7 +71,7 @@ fileData readFile(int argc, char* argv) {
     if (fclose(input) == EOF) {
         exit(INPUT_FILE_FAILED_TO_CLOSE);
     }
-    
+    printf("Maze read in from input file\n");
     printDoubleChar(content, 0);
     return content;
 }
