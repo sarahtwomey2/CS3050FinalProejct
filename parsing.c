@@ -44,7 +44,7 @@ fileData readFile(int argc, char* argv) {
         } else {
             //Adjusts memory for more characters
             if (c == 'S') {
-                content.start[0][0] = content.lineSize[content.rowSize[0]];
+                content.start[0][0] = content.lineSize[content.rowSize[0]]-1;
                 content.start[0][1] = content.rowSize[0];
             } else if (c == 'F') {
                 content.start[1][0] = content.lineSize[content.rowSize[0]];
