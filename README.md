@@ -11,7 +11,11 @@ This folder contains:
 * input_error.h
 
 ###How to make the project
-```make```
+```
+make
+```
 
 ###How to run the project
-```./a.out <input file>```
+```
+./a.out <input file>
+```
