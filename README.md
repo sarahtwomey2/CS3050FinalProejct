@@ -10,12 +10,12 @@ This folder contains:
 * input.txt
 * input_error.h
 
-###How to make the project
+### How to make the project
 ```
 make
 ```
 
-###How to run the project
+### How to run the project
 ```
-./a.out <input file>
+./team17.out <input file>
 ```
