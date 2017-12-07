@@ -72,11 +72,11 @@ fileData readFile(int argc, char* argv) {
         exit(INPUT_FILE_FAILED_TO_CLOSE);
     }
     
-    printDoubleChar(content);
+    printDoubleChar(content, 0);
     return content;
 }
 
-void printDoubleChar(fileData content) {
+void printDoubleChar(fileData content, int robot) {
     //Prints double char pointer in fileData(memory)
     int i, j;
     for (i = 0; i < content.rowSize[0]; i++) {
@@ -84,7 +84,14 @@ void printDoubleChar(fileData content) {
             if (content.memory[i][j] == '-') {
                 content.memory[i][j] = ' ';
             }
-            printf("%c", content.memory[i][j]);
+            if ((robot == 1 && content.memory[i][j] == '*') || (robot == 2 && content.memory[i][j] == '+')) {
+                printf("%c", ' ');
+            } else if(content.memory[i][j] == '^' && robot > 0) {
+                char temp[2] = {'+','*'};
+                printf("%c", temp[robot-1]);
+            } else {
+                printf("%c", content.memory[i][j]);
+            }
         }
         printf("\n");
     }
