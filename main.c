@@ -20,10 +20,7 @@ char maze[6][6] = {'S',' ',' ','#','#','#',
 
 int wasHere[6][6];
 int correctPath[6][6];
-//int startX =0;
-//int startY =0;
-//int endX =3;
-//int endY =4;
+
 int width = 6;
 int height = 6;
 
