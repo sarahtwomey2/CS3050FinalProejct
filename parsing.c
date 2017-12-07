@@ -44,16 +44,16 @@ fileData readFile(int argc, char* argv) {
         } else {
             //Adjusts memory for more characters
             if (c == 'S') {
-                content.start[0][0] = content.lineSize[content.rowSize[0]]-1;
+                content.start[0][0] = content.lineSize[content.rowSize[0]]+1;
                 content.start[0][1] = content.rowSize[0];
             } else if (c == 'F') {
-                content.start[1][0] = content.lineSize[content.rowSize[0]];
+                content.start[1][0] = content.lineSize[content.rowSize[0]]+1;
                 content.start[1][1] = content.rowSize[0];
             } else if (c == 'E') {
-                content.end[0][0] = content.lineSize[content.rowSize[0]];
+                content.end[0][0] = content.lineSize[content.rowSize[0]]+1;
                 content.end[0][1] = content.rowSize[0];
             } else if (c == 'L') {
-                content.end[0][0] = content.lineSize[content.rowSize[0]];
+                content.end[0][0] = content.lineSize[content.rowSize[0]]+1;
                 content.end[0][1] = content.rowSize[0];
             }
             content.memory[content.rowSize[0]] = realloc(content.memory[content.rowSize[0]], (content.lineSize[content.rowSize[0]]+1)*sizeof(char));
