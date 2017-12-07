@@ -35,21 +35,17 @@ int main(int argc, char * argv[]) {
     
     printf("x = %d, y = %d", content.start[0][0], content.start[0][1]);
     
+    
     if(b == 1) {
         printf("\nSuccess");
     } else {
         printf("\nCould not find way out of maze");
     }
     
-    /*char printmaze[100][200];
+    char printmaze[100][200];
     
     printf("\n\nprinting new maze:\n");
-    for(int i=0; i<*content.rowSize; i++) {
-        for (int j=0; j<content.lineSize[i]; j++) {
-            printf(" %c", printmaze[i][j]);
-        }
-        printf("\n");
-    }*/
+    printDoubleChar(content);
     
     // Will leave you with a boolean array (correctPath)
     // with the path indicated by true values.
@@ -61,10 +57,11 @@ int main(int argc, char * argv[]) {
 
 int recursiveSolve(int x, int y, char** maze, fileData content) {
     //0 = false, 1 = true
-    printf("recursiveSolve");
+    //printf("recursiveSolve");
+    printf("\n%c", maze[x][y]);
     if (maze[x][y] == 'E') return 1; // If you reached the end
     if (maze[x][y] == '#' || wasHere[x][y]) {
-        printf("\n%c\n", maze[x][y]);
+        //printf("\n%c\n", maze[x][y]);
         return 0;
     }
     // If you are on a wall or already were here
@@ -94,6 +91,7 @@ int recursiveSolve(int x, int y, char** maze, fileData content) {
             return 1;
         }
     
-    //maze[x][y] = 'x';
+    maze[x][y] = 'x';
     return 0;
 }
+
