@@ -81,6 +81,9 @@ void printDoubleChar(fileData content) {
     int i, j;
     for (i = 0; i < content.rowSize[0]; i++) {
         for (j = 0; j < content.lineSize[i]; j++) {
+            if (content.memory[i][j] == '-') {
+                content.memory[i][j] = ' ';
+            }
             printf("%c", content.memory[i][j]);
         }
         printf("\n");
