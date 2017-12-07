@@ -9,7 +9,9 @@ This folder contains:
 * parsing.h
 * input.txt
 * input_error.h
+
 ###How to make the project
 ```make```
+
 ###How to run the project
 ```./a.out <input file>```
