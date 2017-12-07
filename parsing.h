@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include "input_error.h"
 
+//Struct needed for reading in the input file
 typedef struct fileContent {
     char** memory;
     int* lineSize;
@@ -13,8 +14,10 @@ typedef struct fileContent {
     int** end;
 } fileData;
 
+//Function Prototypes
 fileData readFile(int argc, char* argv);
 void printDoubleChar(fileData);
+void allocateFileData(fileData);
 void freeParsing(fileData);
 
 #endif
