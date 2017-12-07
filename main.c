@@ -11,13 +11,11 @@
 
 //void solveMaze(int x, int y);
 int recursiveSolve(int x, int y, char** maze, fileData content);
-
+void makeWall(int x, int y, char** maze);
 
 
 int wasHere[200][500];
 int correctPath[200][500];
-//int width = 6;
-//int height = 6;
 
 int main(int argc, char * argv[]) {
     
@@ -55,6 +53,24 @@ int main(int argc, char * argv[]) {
 }
 
 
+void makeWall(int x, int y, char** maze) {
+    if(maze[x-1][y] != '#')
+        maze[x-1][y] = '-';
+    if(maze[x][y-1] != '#')
+        maze[x][y-1] = '-';
+    if(maze[x+1][y] != '#')
+        maze[x+1][y] = '-';
+    if(maze[x][y+1] != '#')
+        maze[x][y+1] = '-';
+    if(maze[x+1][y+1] != '#')
+        maze[x+1][y+1] = '-';
+    if(maze[x-1][y-1] != '#')
+        maze[x-1][y-1] = '-';
+    if(maze[x+1][y-1] != '#')
+        maze[x+1][y-1] = '-';
+    if(maze[x-1][y+1] != '#')
+        maze[x-1][y+1] = '-';
+}
 
 int recursiveSolve(int x, int y, char** maze, fileData content) {
     //0 = false, 1 = true
