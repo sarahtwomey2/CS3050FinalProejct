@@ -1,4 +1,4 @@
-# CS3050FinalProejct
+# CS3050FinalProject
 
 Sarah Twomey, Jordan Wieberg, Paul Gillis, Travis Agne
 
