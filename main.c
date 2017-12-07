@@ -25,7 +25,7 @@ int main(int argc, char * argv[]) {
     //char maze[content.rowSize[0]][content.lineSize[0]] = content.memory;
     
     for(int row=0; row< *content.rowSize; row++) {
-        for(int col=0; col < *content.lineSize[row]; col++) {
+        for(int col=0; col < content.lineSize[row]; col++) {
             wasHere[row][col] = 0;
             correctPath[row][col] = 0;
         }
@@ -64,25 +64,25 @@ int recursiveSolve(int x, int y, char** maze) {
     // If you are on a wall or already were here
     wasHere[x][y] = 1;
     if (x != 0) // Checks if not on left edge
-        if (recursiveSolve(x-1, y)) { // Recalls method one to the left
+        if (recursiveSolve(x-1, y, maze)) { // Recalls method one to the left
             correctPath[x][y] = 1; // Sets that path value to true;
-            maze = '+'; //changing value from . to +
+            maze[x][y] = '+'; //changing value from . to +
             return 1;
         }
     if (x != width - 1) // Checks if not on right edge
-        if (recursiveSolve(x+1, y)) { // Recalls method one to the right
+        if (recursiveSolve(x+1, y, maze)) { // Recalls method one to the right
             correctPath[x][y] = 1;
             maze[x][y] = '+';
             return 1;
         }
     if (y != 0)  // Checks if not on top edge
-        if (recursiveSolve(x, y-1)) { // Recalls method one up
+        if (recursiveSolve(x, y-1, maze)) { // Recalls method one up
             correctPath[x][y] = 1;
             maze[x][y] = '+';
             return 1;
         }
     if (y != height - 1) // Checks if not on bottom edge
-        if (recursiveSolve(x, y+1)) {  //Recalls method one down
+        if (recursiveSolve(x, y+1, maze)) {  //Recalls method one down
             correctPath[x][y] = 1;
             maze[x][y] = '+';
             return 1;
