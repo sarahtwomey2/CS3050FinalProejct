@@ -17,5 +17,5 @@ make
 
 ### How to run the project
 ```
-./a.out <input file>
+./team17.out <input file>
 ```
