@@ -31,7 +31,7 @@ int main(int argc, char * argv[]) {
     printf("\ntest");
     makeWall(content.start[1][1], content.start[1][0], content.memory);
     
-    int b = recursiveSolve(content.start[0][1], content.start[0][0], content.memory, content);
+    int b = recursiveSolve(content.start[0][0], content.start[0][1], content.memory, content);
     
     printf("x = %d, y = %d", content.start[0][1], content.start[0][0]);
     
@@ -77,39 +77,43 @@ void makeWall(int x, int y, char** maze) {
 int recursiveSolve(int x, int y, char** maze, fileData content) {
     //0 = false, 1 = true
     //printf("recursiveSolve");
-    printf("\nsymbol: %c", maze[x][y]);
+    //printf("\nsymbol: %c position (x,y): (%d,%d)", maze[x][y], x, y);
     
-    if (maze[x][y] == 'E') { // If you reached the end
+    if(x == 14 && y == 19) {
+        printf("\nx=10y=20   \"%c\"%d %d %d %d", maze[y][x], maze[y][x] == '#', wasHere[y][x], maze[y][x] == '-', wasHere[y][x+1]);
+    }
+    
+    if (maze[y][x] == 'E') { // If you reached the end
         return 1;
     }
-    if (maze[x][y] == '#' || wasHere[x][y] || maze[x][y] == '-') {
-        //printf("\n%c\n", maze[x][y]);
+    if (maze[y][x] == '#' || wasHere[y][x] || maze[y][x] == '-') {
+        //printf("\n%c ", maze[x][y]);
         return 0;
     }
     // If you are on a wall or already were here
-    wasHere[x][y] = 1;
+    wasHere[y][x] = 1;
     if (x != 0) // Checks if not on left edge
         if (recursiveSolve(x-1, y, maze, content) == 1) { // Recalls method one to the left
-            correctPath[x][y] = 1; // Sets that path value to true;
-            maze[x][y] = '+'; //changing value from . to +
+            correctPath[y][x] = 1; // Sets that path value to true;
+            maze[y][x] = '+'; //changing value from . to +
             return 1;
         }
     if (x != content.lineSize[y] - 1) // Checks if not on right edge
         if (recursiveSolve(x+1, y, maze, content) == 1)  { // Recalls method one to the right
-            correctPath[x][y] = 1;
-            maze[x][y] = '+';
+            correctPath[y][x] = 1;
+            maze[y][x] = '+';
             return 1;
         }
     if (y != 0)  // Checks if not on top edge
         if (recursiveSolve(x, y-1, maze, content) == 1) { // Recalls method one up
-            correctPath[x][y] = 1;
-            maze[x][y] = '+';
+            correctPath[y][x] = 1;
+            maze[y][x] = '+';
             return 1;
         }
     if (y != content.rowSize[0] - 1) // Checks if not on bottom edge
         if (recursiveSolve(x, y+1, maze, content) ==1) {  //Recalls method one down
-            correctPath[x][y] = 1;
-            maze[x][y] = '+';
+            correctPath[y][x] = 1;
+            maze[y][x] = '+';
             return 1;
         }
     
