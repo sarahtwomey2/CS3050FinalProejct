@@ -1,4 +1,4 @@
-# CS3050FinalProejct
+# CS3050FinalProject
 
 Sarah Twomey, Jordan Wieberg, Paul Gillis, Travis Agne
 
@@ -19,3 +19,6 @@ make
 ```
 ./team17.out <input file>
 ```
+
+#### Purpose of project
+To read in a input file (Ex: input.txt) and load it into memory. Once in memory the input file should contain a start and end position for two "robots". If a start and end is found the program will run through a maze agorithm and create a route for the robots to go through the maze.
