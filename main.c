@@ -90,17 +90,19 @@ int recursiveSolve(int x, int y, int robot, fileData content) {
 void setupRecursiveSolve(fileData content) {
     int rowSize = *content.rowSize;
     wasHere = malloc(sizeof(int*)*rowSize);
-    for(int row=0; row< rowSize; row++) {
+    int row, col;
+    for(row=0; row< rowSize; row++) {
         int colSize = content.lineSize[row];
         wasHere[row] = malloc(sizeof(int)*colSize);
-        for(int col=0; col < colSize; col++) {
+        for(col=0; col < colSize; col++) {
             wasHere[row][col] = 0;
         }
     }
 }
 
 void freeRecursiveSolve(fileData content) {
-    for(int row=0; row < *content.rowSize; row++) {
+    int row;
+    for(row=0; row < *content.rowSize; row++) {
         free(wasHere[row]);
     }
     free(wasHere);
@@ -132,7 +134,7 @@ void checkOverlap(int x, int y, char move, fileData content) {
     }
     if (content.memory[y][x] == opp) {
         content.memory[y][x] = '^';
-    } else {
+    } else if(content.memory[y][x] != 'S' && content.memory[y][x] != 'F') {
         content.memory[y][x] = move;
     }
 }
