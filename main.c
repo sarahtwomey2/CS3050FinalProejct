@@ -7,52 +7,42 @@
 //
 
 #include <stdio.h>
+#include "parsing.h"
 
-void solveMaze();
+void solveMaze(int x, int y);
 int recursiveSolve(int x, int y);
 
 char maze[6][6] = {'S',' ',' ','#','#','#',
-                   ' ',' ',' ',' ',' ','#',
-                   ' ','#','#','#',' ','#',
-                   ' ',' ','#','#','E',' ',
-                   '#','#','#','#','#','#',
-                   '#',' ','#','#','#','#'};
+    ' ',' ',' ',' ',' ','#',
+    ' ','#','#','#',' ','#',
+    ' ',' ','#','#','E',' ',
+    '#','#','#','#','#','#',
+    '#',' ','#','#','#','#'};
 
 int wasHere[6][6];
 int correctPath[6][6];
-
+//int startX =0;
+//int startY =0;
+//int endX =3;
+//int endY =4;
 int width = 6;
 int height = 6;
 
-int main(int argc, const char * argv[]) {
+int main(int argc, char * argv[]) {
     printf("original: \n");
-    int startX, startY, endX, endY;
     
-    for(int i=0; i<6; i++) {
-        for (int j=0; j<6; j++) {
-            printf(" %c", maze[i][j]);
-            if(maze[i][j] == 'S') {
-                startX = i;
-                startY = j;
-            }
-            if(maze[i][j] == 'G') {
-                endX = i;
-                endY = j;
-            }
-        }
-        printf("\n");
-    }
+    fileData content = readFile(argc, *(argv+1));
     
     
-    for (int row = 0; row < 6; row++)
-        // Sets boolean Arrays to default values
-        for (int col = 0; col < 6; col++){
-            wasHere[row][col] = 0;
-            correctPath[row][col] = 0;
-        }
     
-    int b = recursiveSolve(startX, startY);
+    //    for (int row = 0; row < *content.rowSize; row++)
+    //        // Sets boolean Arrays to default values
+    //        for (int col = 0; col < 6; col++){
+    //            wasHere[row][col] = 0;
+    //            correctPath[row][col] = 0;
+    //        }
     
+    int b = recursiveSolve(content.start[0][0], content.start[0][1]);
     if(b == 1) {
         printf("\nSuccess");
     } else {
@@ -110,3 +100,4 @@ int recursiveSolve(int x, int y) {
     maze[x][y] = 'x';
     return 0;
 }
+
