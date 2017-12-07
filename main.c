@@ -11,12 +11,12 @@
 void solveMaze();
 int recursiveSolve(int x, int y);
 
-char maze[6][6] = {'S','.','.','#','#','#',
-                   '.','.','.','.','.','#',
-                   '.','#','#','#','.','#',
-                   '.','.','#','#','G','.',
+char maze[6][6] = {'S',' ',' ','#','#','#',
+                   ' ',' ',' ',' ',' ','#',
+                   ' ','#','#','#',' ','#',
+                   ' ',' ','#','#','E',' ',
                    '#','#','#','#','#','#',
-                   '#','.','#','#','#','#'};
+                   '#',' ','#','#','#','#'};
 
 int wasHere[6][6];
 int correctPath[6][6];
@@ -82,7 +82,7 @@ int main(int argc, const char * argv[]) {
 int recursiveSolve(int x, int y) {
     //0 = false, 1 = true
     
-    if (maze[x][y] == 'G') return 1; // If you reached the end
+    if (maze[x][y] == 'E') return 1; // If you reached the end
     if (maze[x][y] == '#' || wasHere[x][y]) return 0;
     // If you are on a wall or already were here
     wasHere[x][y] = 1;
