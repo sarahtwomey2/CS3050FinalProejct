@@ -38,6 +38,7 @@ int main(int argc, char * argv[]) {
     
     if(b == 1) {
         printf("\nSuccess");
+        
     } else {
         printf("\nCould not find way out of maze");
     }
@@ -60,8 +61,10 @@ int recursiveSolve(int x, int y, char** maze, fileData content) {
     //printf("recursiveSolve");
     printf("\nsymbol: %c", maze[x][y]);
     
-    if (maze[x][y] == 'E') return 1; // If you reached the end
-    if (maze[x][y] == '#' || wasHere[x][y]) {
+    if (maze[x][y] == 'E') { // If you reached the end
+        return 1;
+    }
+    if (maze[x][y] == '#' || wasHere[x][y] || maze[x][y] == '-') {
         //printf("\n%c\n", maze[x][y]);
         return 0;
     }
