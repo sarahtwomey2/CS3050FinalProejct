@@ -9,3 +9,7 @@ This folder contains:
 * parsing.h
 * input.txt
 * input_error.h
+```
+make
+./a.out input.txt
+```
