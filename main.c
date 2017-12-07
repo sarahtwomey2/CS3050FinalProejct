@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include "parsing.h"
 
+int robotPathFinder(int robot, fileData content);
 int recursiveSolve(int x, int y, int robot, fileData content);
 void setupRecursiveSolve(fileData content);
 void freeRecursiveSolve(fileData content);
@@ -18,35 +19,15 @@ void checkOverlap(int x, int y, char move, fileData content);
 int** wasHere;
 
 int main(int argc, char * argv[]) {
-    
     fileData content = readFile(argc, *(argv+1));
-    
     /*
      * Robot 1 Path
      */
-    setupRecursiveSolve(content);
-    makeWall(content.start[1][1], content.start[1][0], content.memory);
-    int a = recursiveSolve(content.start[0][0], content.start[0][1], 1, content);
-    if (a == 1) {
-        printf("\nFirst Robot's path (+)\n");
-        printDoubleChar(content, 1);
-    } else {
-        printf("\nFailed to find path for robot 1!\n");
-    }
-    freeRecursiveSolve(content);
+    int a = robotPathFinder(1, content);
     /*
      * Robot 2 Path
      */
-    setupRecursiveSolve(content);
-    makeWall(content.end[0][0], content.end[0][1], content.memory);
-    int b = recursiveSolve(content.start[1][0], content.start[1][1], 2, content);
-    if (b == 1) {
-        printf("\nSecond Robot's path (*) Overlaping paths = (^)\n");
-        printDoubleChar(content, 2);
-    } else {
-        printf("\nFailed to find path for robot 2\n");
-    }
-    freeRecursiveSolve(content);
+    int b = robotPathFinder(2, content);
     /*
      * Solved maze paths
      */
@@ -62,6 +43,25 @@ int main(int argc, char * argv[]) {
      */
     freeParsing(content);
     return 0;
+}
+
+int robotPathFinder(int robot, fileData content) {
+    setupRecursiveSolve(content);
+    if (robot == 1) {
+        printf("\nFirst Robot's path (+)\n");
+        makeWall(content.start[1][1], content.start[1][0], content.memory);
+    } else {
+        printf("\nSecond Robot's path (*) Overlaping paths = (^)\n");
+        makeWall(content.end[0][0], content.end[0][1], content.memory);
+    }
+    int a = recursiveSolve(content.start[robot-1][0], content.start[robot-1][1], robot, content);
+    if (a == 1) {
+        printDoubleChar(content, robot);
+    } else {
+        printf("\nFailed to find path for robot %d!\n", robot);
+    }
+    freeRecursiveSolve(content);
+    return a;
 }
 
 int recursiveSolve(int x, int y, int robot, fileData content) {
