@@ -8,3 +8,4 @@ This folder contains:
 * parsing.c
 * parsing.h
 * input.txt
+* input_error.h
