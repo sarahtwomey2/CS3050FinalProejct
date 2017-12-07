@@ -10,7 +10,7 @@
 #include "parsing.h"
 
 //void solveMaze(int x, int y);
-int recursiveSolve(int x, int y, char** content.memory);
+int recursiveSolve(int x, int y, char** maze);
 
 
 
@@ -66,7 +66,7 @@ int recursiveSolve(int x, int y, char** maze) {
     if (x != 0) // Checks if not on left edge
         if (recursiveSolve(x-1, y)) { // Recalls method one to the left
             correctPath[x][y] = 1; // Sets that path value to true;
-            content.memory = '+'; //changing value from . to +
+            maze = '+'; //changing value from . to +
             return 1;
         }
     if (x != width - 1) // Checks if not on right edge
