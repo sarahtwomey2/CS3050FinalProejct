@@ -30,7 +30,7 @@ int main(int argc, char * argv[]) {
             correctPath[row][col] = 0;
         }
     }
-    
+    printf("\ntest");
     int b = recursiveSolve(content.start[0][0], content.start[0][1], content.memory, content);
     
     printf("x = %d, y = %d", content.start[0][0], content.start[0][1]);
@@ -55,10 +55,11 @@ int main(int argc, char * argv[]) {
 
 
 
-int recursiveSolve(int x, int y, char** maze, fileData content) {
+int recursiveSolve(int y, int x, char** maze, fileData content) {
     //0 = false, 1 = true
     //printf("recursiveSolve");
-    printf("\n%c", maze[x][y]);
+    printf("\nsymbol: %c", maze[x][y]);
+    
     if (maze[x][y] == 'E') return 1; // If you reached the end
     if (maze[x][y] == '#' || wasHere[x][y]) {
         //printf("\n%c\n", maze[x][y]);
