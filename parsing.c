@@ -68,7 +68,7 @@ fileData readFile(int argc, char* argv) {
     }
     
     //close the input file and check if the input file could be closed
-    if (!fclose(input)) {
+    if (fclose(input) == EOF) {
         exit(INPUT_FILE_FAILED_TO_CLOSE);
     }
     
