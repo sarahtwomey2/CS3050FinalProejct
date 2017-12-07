@@ -14,7 +14,18 @@ fileData readFile(int argc, char* argv) {
         exit(INPUT_FILE_FAILED_TO_OPEN);
     }
     
-    allocateFileData(content);
+    //Allocates memory for fileData
+    content.memory = malloc(sizeof(char*));
+    content.lineSize = malloc(sizeof(int));
+    content.rowSize = malloc(sizeof(int));
+    content.start = malloc(2*sizeof(int*));
+    content.start[0] = malloc(2*sizeof(int));
+    content.start[1] = malloc(2*sizeof(int));
+    content.end = malloc(2*sizeof(int));
+    content.end[0] = malloc(2*sizeof(int));
+    content.end[1] = malloc(2*sizeof(int));
+    content.memory[0] = malloc(sizeof(char));
+    content.lineSize[0] = 0;
     
     //Reads in input file character by character
     char c;
@@ -74,21 +85,6 @@ void printDoubleChar(fileData content) {
         }
         printf("\n");
     }
-}
-
-void allocateFileData(fileData content) {
-    //Allocates memory for fileData
-    content.memory = malloc(sizeof(char*));
-    content.lineSize = malloc(sizeof(int));
-    content.rowSize = malloc(sizeof(int));
-    content.start = malloc(2*sizeof(int*));
-    content.start[0] = malloc(2*sizeof(int));
-    content.start[1] = malloc(2*sizeof(int));
-    content.end = malloc(2*sizeof(int));
-    content.end[0] = malloc(2*sizeof(int));
-    content.end[1] = malloc(2*sizeof(int));
-    content.memory[0] = malloc(sizeof(char));
-    content.lineSize[0] = 0;
 }
 
 void freeParsing(fileData content) {

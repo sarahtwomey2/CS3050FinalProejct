@@ -17,7 +17,6 @@ typedef struct fileContent {
 //Function Prototypes
 fileData readFile(int argc, char* argv);
 void printDoubleChar(fileData);
-void allocateFileData(fileData);
 void freeParsing(fileData);
 
 #endif
