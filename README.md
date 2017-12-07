@@ -17,7 +17,7 @@ make
 
 ### How to run the project
 ```
-./team17.out <input file>
+./gillisp_tpafzf_jlwyff_smtbz5.o <input file>
 ```
 
 ### Purpose of project
