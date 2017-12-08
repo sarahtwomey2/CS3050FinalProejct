@@ -127,21 +127,21 @@ void freeRecursiveSolve(fileData content) {
 }
 
 void makeWall(int x, int y, char** maze) {
-    if(maze[x-1][y] != '#')
+    if(maze[x-1][y] != '#' || maze[x-1][y] != 'E' || maze[x-1][y] != 'L')
         maze[x-1][y] = '-';
-    if(maze[x][y-1] != '#')
+    if(maze[x][y-1] != '#' || maze[x][y-1] != 'E' || maze[x][y-1] != 'L')
         maze[x][y-1] = '-';
-    if(maze[x+1][y] != '#')
+    if(maze[x+1][y] != '#' || maze[x+1][y] != 'E' || maze[x+1][y] != 'L')
         maze[x+1][y] = '-';
-    if(maze[x][y+1] != '#')
+    if(maze[x][y+1] != '#' || maze[x][y+1] != 'E' || maze[x][y+1] != 'L')
         maze[x][y+1] = '-';
-    if(maze[x+1][y+1] != '#')
+    if(maze[x+1][y+1] != '#' || maze[x+1][y+1] != 'E' || maze[x+1][y+1] != 'L')
         maze[x+1][y+1] = '-';
-    if(maze[x-1][y-1] != '#')
+    if(maze[x-1][y-1] != '#' || maze[x-1][y-1] != 'E' || maze[x-1][y-1] != 'L')
         maze[x-1][y-1] = '-';
-    if(maze[x+1][y-1] != '#')
+    if(maze[x+1][y-1] != '#' || maze[x+1][y-1] != 'E' || maze[x+1][y-1] != 'L')
         maze[x+1][y-1] = '-';
-    if(maze[x-1][y+1] != '#')
+    if(maze[x-1][y+1] != '#' || maze[x-1][y+1] != 'E' || maze[x-1][y+1] != 'L')
         maze[x-1][y+1] = '-';
 }
 
