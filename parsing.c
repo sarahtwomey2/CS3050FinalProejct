@@ -1,4 +1,5 @@
 #include "parsing.h"
+#include <stdbool.h>
 
 fileData readFile(int argc, char* argv) {
     //Check if correct number of commands line args. Make sure input file has a path
@@ -29,6 +30,11 @@ fileData readFile(int argc, char* argv) {
     
     //Reads in input file character by character
     char c;
+    bool isS = false;
+    bool isF = false;
+    bool isE = false;
+    bool isL = false;
+    
     while ((c = fgetc(input)) != EOF) {
         if (c != ' ' && c != '#' && c != 'S' && c != 'E' && c != 'F' && c != 'L' && c != EOF && c != '\n') {
             //Check if invalid character inside input file
@@ -46,15 +52,19 @@ fileData readFile(int argc, char* argv) {
             if (c == 'S') {
                 content.start[0][0] = content.lineSize[content.rowSize[0]];
                 content.start[0][1] = content.rowSize[0];
+                isS = true;
             } else if (c == 'F') {
                 content.start[1][0] = content.lineSize[content.rowSize[0]];
                 content.start[1][1] = content.rowSize[0];
+                isF = true;
             } else if (c == 'E') {
                 content.end[0][0] = content.lineSize[content.rowSize[0]];
                 content.end[0][1] = content.rowSize[0];
+                isE = true;
             } else if (c == 'L') {
                 content.end[0][0] = content.lineSize[content.rowSize[0]];
                 content.end[0][1] = content.rowSize[0];
+                isL = true;
             }
             content.memory[content.rowSize[0]] = realloc(content.memory[content.rowSize[0]], (content.lineSize[content.rowSize[0]]+1)*sizeof(char));
             content.memory[content.rowSize[0]][content.lineSize[content.rowSize[0]]] = c;
@@ -73,6 +83,24 @@ fileData readFile(int argc, char* argv) {
     }
     printf("Maze read in from input file\n");
     printDoubleChar(content, 0);
+    
+    if(isS == false) {
+        printf("Error: S is not in maze.");
+        exit(PARSING_ERROR_INVALID_FORMAT);
+    }
+    if(isF == false) {
+        printf("Error: F is not in maze.");
+        exit(PARSING_ERROR_INVALID_FORMAT);
+    }
+    if(isE == false) {
+        printf("Error: E is not in maze.");
+        exit(PARSING_ERROR_INVALID_FORMAT);
+    }
+    if(isL == false) {
+        printf("Error: L is not in maze.");
+        exit(PARSING_ERROR_INVALID_FORMAT);
+    }
+    
     return content;
 }
 
