@@ -2,7 +2,7 @@
 //  main.c
 //  RecursiveMaze2
 //
-//  Created by Sarah Twomey on 11/30/17.
+//  Created by Sarah Twomey, Jordan Wieberg, Travis Agne & Paul Gillis on 11/30/17.
 //  Copyright © 2017 Sarah Twomey. All rights reserved.
 //
 
