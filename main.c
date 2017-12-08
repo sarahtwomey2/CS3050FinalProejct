@@ -47,6 +47,7 @@ int main(int argc, char * argv[]) {
     return 0;
 }
 
+//Solves the paths for the specified robots (used for organization purposes)
 int robotPathFinder(int robot, fileData content) {
     setupRecursiveSolve(content);
     if (robot == 1) {
@@ -67,10 +68,8 @@ int robotPathFinder(int robot, fileData content) {
     return a;
 }
 
+//Alogrithm that finds the paths for the start and end positions of the robots
 int recursiveSolve(int x, int y, int robot, fileData content) {
-    //0 = false, 1 = true
-    //printf("recursiveSolve");
-    //printf("\nsymbol: %c position (x,y): (%d,%d)", maze[x][y], x, y);
     char tempEnd[2] = {'E', 'L'};
     char end = tempEnd[robot-1];
     char tempMove[2] = {'+', '*'};
@@ -108,6 +107,7 @@ int recursiveSolve(int x, int y, int robot, fileData content) {
     return 0;
 }
 
+//Sets up recursive path solver for each robot
 void setupRecursiveSolve(fileData content) {
     int rowSize = *content.rowSize;
     wasHere = malloc(sizeof(int*)*rowSize);
@@ -124,6 +124,7 @@ void setupRecursiveSolve(fileData content) {
     }
 }
 
+//Frees double character pointers that are used for maze solving algorithm
 void freeRecursiveSolve(fileData content) {
     int row;
     for(row=0; row < *content.rowSize; row++) {
@@ -134,6 +135,7 @@ void freeRecursiveSolve(fileData content) {
     free(paths);
 }
 
+//Makes walls so robots do not touch
 void makeWall(int x, int y, fileData content) {
     if (!inBounds(x, y, content)){
         return;
@@ -164,6 +166,7 @@ void makeWall(int x, int y, fileData content) {
     }
 }
 
+//Checks if x and y position are inside the 2d memory array
 int inBounds(int x, int y, fileData content) {
     if (0 > y || y >= *content.rowSize) {
         return 0;
@@ -174,6 +177,7 @@ int inBounds(int x, int y, fileData content) {
     return 0;
 }
 
+//Checks if paths overlap and change path icon to ^
 void checkOverlap(int x, int y, char move, fileData content) {
     char opp = '+';
     if (move == '+') {
