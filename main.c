@@ -13,7 +13,8 @@ int robotPathFinder(int robot, fileData content);
 int recursiveSolve(int x, int y, int robot, fileData content);
 void setupRecursiveSolve(fileData content);
 void freeRecursiveSolve(fileData content);
-void makeWall(int x, int y, char** maze);
+void makeWall(int x, int y, fileData content);
+int inBounds(int x, int y, fileData content);
 void checkOverlap(int x, int y, char move, fileData content);
 
 int** wasHere;
@@ -49,10 +50,10 @@ int robotPathFinder(int robot, fileData content) {
     setupRecursiveSolve(content);
     if (robot == 1) {
         printf("\nFirst Robot's path (+)\n");
-        makeWall(content.start[1][1], content.start[1][0], content.memory);
+        makeWall(content.start[1][0], content.start[1][1], content);
     } else {
         printf("\nSecond Robot's path (*) Overlaping paths = (^)\n");
-        makeWall(content.end[0][0], content.end[0][1], content.memory);
+        makeWall(content.end[0][0], content.end[0][1], content);
     }
     int a = recursiveSolve(content.start[robot-1][0], content.start[robot-1][1], robot, content);
     if (a == 1) {
@@ -126,23 +127,36 @@ void freeRecursiveSolve(fileData content) {
     free(wasHere);
 }
 
-void makeWall(int x, int y, char** maze) {
-    if(maze[x-1][y] != '#' || maze[x-1][y] != 'E' || maze[x-1][y] != 'L')
-        maze[x-1][y] = '-';
-    if(maze[x][y-1] != '#' || maze[x][y-1] != 'E' || maze[x][y-1] != 'L')
-        maze[x][y-1] = '-';
-    if(maze[x+1][y] != '#' || maze[x+1][y] != 'E' || maze[x+1][y] != 'L')
-        maze[x+1][y] = '-';
-    if(maze[x][y+1] != '#' || maze[x][y+1] != 'E' || maze[x][y+1] != 'L')
-        maze[x][y+1] = '-';
-    if(maze[x+1][y+1] != '#' || maze[x+1][y+1] != 'E' || maze[x+1][y+1] != 'L')
-        maze[x+1][y+1] = '-';
-    if(maze[x-1][y-1] != '#' || maze[x-1][y-1] != 'E' || maze[x-1][y-1] != 'L')
-        maze[x-1][y-1] = '-';
-    if(maze[x+1][y-1] != '#' || maze[x+1][y-1] != 'E' || maze[x+1][y-1] != 'L')
-        maze[x+1][y-1] = '-';
-    if(maze[x-1][y+1] != '#' || maze[x-1][y+1] != 'E' || maze[x-1][y+1] != 'L')
-        maze[x-1][y+1] = '-';
+void makeWall(int x, int y, fileData content) {
+    if (!inBounds(x, y, content)){
+        return;
+    }
+    if(inBounds(x-1, y, content) && content.memory[y][x-1] != '#')
+        content.memory[y][x-1] = '-';
+    if(inBounds(x, y-1, content) && content.memory[y-1][x] != '#')
+        content.memory[y-1][x] = '-';
+    if(inBounds(x+1, y, content) && content.memory[y][x+1] != '#')
+        content.memory[y][x+1] = '-';
+    if(inBounds(x, y+1, content) && content.memory[y+1][x] != '#')
+        content.memory[y+1][x] = '-';
+    if(inBounds(x+1, y+1, content) && content.memory[y+1][x+1] != '#')
+        content.memory[y+1][x+1] = '-';
+    if(inBounds(x-1, y-1, content) && content.memory[y-1][x-1] != '#')
+        content.memory[y-1][x-1] = '-';
+    if(inBounds(x+1, y-1, content) && content.memory[y-1][x+1] != '#')
+        content.memory[y-1][x+1] = '-';
+    if(inBounds(x-1, y+1, content) && content.memory[y+1][x-1] != '#')
+        content.memory[y+1][x-1] = '-';
+}
+
+int inBounds(int x, int y, fileData content) {
+    if (0 > y || y >= *content.rowSize) {
+        return 0;
+    }
+    if (-1 < x && x < content.lineSize[y]) {
+        return 1;
+    }
+    return 0;
 }
 
 void checkOverlap(int x, int y, char move, fileData content) {
