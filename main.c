@@ -18,6 +18,7 @@ int inBounds(int x, int y, fileData content);
 void checkOverlap(int x, int y, char move, fileData content);
 
 int** wasHere;
+int** paths;
 
 int main(int argc, char * argv[]) {
     fileData content = readFile(argc, *(argv+1));
@@ -59,6 +60,7 @@ int robotPathFinder(int robot, fileData content) {
     if (a == 1) {
         printDoubleChar(content, robot);
     } else {
+        printDoubleChar(content, robot);
         printf("\nFailed to find path for robot %d!\n", robot);
     }
     freeRecursiveSolve(content);
@@ -77,7 +79,7 @@ int recursiveSolve(int x, int y, int robot, fileData content) {
     if (content.memory[y][x] == end) { // If you reached the end
         return 1;
     }
-    if (content.memory[y][x] == '#' || wasHere[y][x] || content.memory[y][x] == '-') {
+    if (content.memory[y][x] == '#' || wasHere[y][x] || content.memory[y][x] == '-' || paths[y][x] == 1) {
         return 0;
     }
     
@@ -109,12 +111,15 @@ int recursiveSolve(int x, int y, int robot, fileData content) {
 void setupRecursiveSolve(fileData content) {
     int rowSize = *content.rowSize;
     wasHere = malloc(sizeof(int*)*rowSize);
+    paths = malloc(sizeof(int*)*rowSize);
     int row, col;
     for(row=0; row< rowSize; row++) {
         int colSize = content.lineSize[row];
         wasHere[row] = malloc(sizeof(int)*colSize);
+        paths[row] = malloc(sizeof(int)*colSize);
         for(col=0; col < colSize; col++) {
             wasHere[row][col] = 0;
+            paths[row][col] = 0;
         }
     }
 }
@@ -123,30 +128,40 @@ void freeRecursiveSolve(fileData content) {
     int row;
     for(row=0; row < *content.rowSize; row++) {
         free(wasHere[row]);
+        free(paths[row]);
     }
     free(wasHere);
+    free(paths);
 }
 
 void makeWall(int x, int y, fileData content) {
     if (!inBounds(x, y, content)){
         return;
     }
-    if(inBounds(x-1, y, content) && content.memory[y][x-1] != '#')
-        content.memory[y][x-1] = '-';
-    if(inBounds(x, y-1, content) && content.memory[y-1][x] != '#')
-        content.memory[y-1][x] = '-';
-    if(inBounds(x+1, y, content) && content.memory[y][x+1] != '#')
-        content.memory[y][x+1] = '-';
-    if(inBounds(x, y+1, content) && content.memory[y+1][x] != '#')
-        content.memory[y+1][x] = '-';
-    if(inBounds(x+1, y+1, content) && content.memory[y+1][x+1] != '#')
-        content.memory[y+1][x+1] = '-';
-    if(inBounds(x-1, y-1, content) && content.memory[y-1][x-1] != '#')
-        content.memory[y-1][x-1] = '-';
-    if(inBounds(x+1, y-1, content) && content.memory[y-1][x+1] != '#')
-        content.memory[y-1][x+1] = '-';
-    if(inBounds(x-1, y+1, content) && content.memory[y+1][x-1] != '#')
-        content.memory[y+1][x-1] = '-';
+    if(inBounds(x-1, y, content) && content.memory[y][x-1] != '#') {
+        paths[y][x-1] = 1;
+    }
+    if(inBounds(x, y-1, content) && content.memory[y-1][x] != '#') {
+        paths[y-1][x] = 1;
+    }
+    if(inBounds(x+1, y, content) && content.memory[y][x+1] != '#') {
+        paths[y][x+1] = 1;
+    }
+    if(inBounds(x, y+1, content) && content.memory[y+1][x] != '#') {
+        paths[y+1][x] = 1;
+    }
+    if(inBounds(x+1, y+1, content) && content.memory[y+1][x+1] != '#') {
+        paths[y+1][x+1] = 1;
+    }
+    if(inBounds(x-1, y-1, content) && content.memory[y-1][x-1] != '#') {
+        paths[y-1][x-1] = 1;
+    }
+    if(inBounds(x+1, y-1, content) && content.memory[y-1][x+1] != '#') {
+        paths[y-1][x+1] = 1;
+    }
+    if(inBounds(x-1, y+1, content) && content.memory[y+1][x-1] != '#') {
+        paths[y+1][x-1] = 1;
+    }
 }
 
 int inBounds(int x, int y, fileData content) {

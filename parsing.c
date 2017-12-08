@@ -62,8 +62,8 @@ fileData readFile(int argc, char* argv) {
                 content.end[0][1] = content.rowSize[0];
                 isE = true;
             } else if (c == 'L') {
-                content.end[0][0] = content.lineSize[content.rowSize[0]];
-                content.end[0][1] = content.rowSize[0];
+                content.end[1][0] = content.lineSize[content.rowSize[0]];
+                content.end[1][1] = content.rowSize[0];
                 isL = true;
             }
             content.memory[content.rowSize[0]] = realloc(content.memory[content.rowSize[0]], (content.lineSize[content.rowSize[0]]+1)*sizeof(char));
@@ -109,9 +109,6 @@ void printDoubleChar(fileData content, int robot) {
     int i, j;
     for (i = 0; i < content.rowSize[0]; i++) {
         for (j = 0; j < content.lineSize[i]; j++) {
-            if (content.memory[i][j] == '-') {
-                content.memory[i][j] = ' ';
-            }
             if ((robot == 1 && content.memory[i][j] == '*') || (robot == 2 && content.memory[i][j] == '+')) {
                 printf("%c", ' ');
             } else if(content.memory[i][j] == '^' && robot > 0) {
